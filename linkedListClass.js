@@ -122,8 +122,51 @@ class LinkedList {
   }
 }
 
+const display = (list) => {
+  let currNode = list.head;
+
+  while (currNode !== null) {
+    console.log(currNode.value);
+    currNode = currNode.next;
+  }
+};
+
+const size = (list) => {
+  let currNode = list.head;
+  let count = 0;
+  while (currNode !== null) {
+    count +=1;
+    currNode = currNode.next;
+  }
+  console.log(count);
+};
+
+const isEmpty = (list) => {
+  return list.head === null ? true : false;
+};
+
+const findPrevious = (item, list) => {
+  let currNode = list.head;
+  let prevNode = list.head;
+
+  while(currNode.value !== item && currNode !== null) {
+    prevNode = currNode;
+    currNode = currNode.next;
+  }
+  return prevNode.value;
+};
+
+const findLast = (list) => {
+  let currNode = list.head;
+  while (currNode.next !== null) {
+    currNode = currNode.next;
+  }
+  return currNode.value;
+};
+
 const main = () => {
   let SLL = new LinkedList();
+
 
   SLL.insertFirst('Apollo');
   SLL.insertLast('Boomer');
@@ -136,8 +179,17 @@ const main = () => {
   SLL.insertBefore('Boomer', 'Athena');
   SLL.insertAfter('Helo', 'Hotdog');
   SLL.insert('Kat', 3);
+  SLL.remove('Tauhida');
+
+  display(SLL);
+  // size(SLL);
+  // console.log(isEmpty(SLL));
+  // console.log(findPrevious('Starbuck', SLL));
+  // console.log(findLast(SLL));
+  
+
   // console.log(SLL.find('Helo'));
-  console.log((JSON.stringify(SLL)));
+  // console.log((JSON.stringify(SLL, null, 2)));
 };
 
 main();
