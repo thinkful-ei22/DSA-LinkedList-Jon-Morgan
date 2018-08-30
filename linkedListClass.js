@@ -78,7 +78,18 @@ class LinkedList {
     prevNode.next = newItem;
   }
     
-  
+  insertCycle(item) {
+    if (this.head === null) {
+      this.insertFirst(item);
+    }
+    else {
+      let tempNode = this.head;
+      while(tempNode.next !== null) {
+        tempNode = tempNode.next;
+      }
+      tempNode.next = new _Node(item, this.head);
+    }
+  }
 
   find(item) {
 
@@ -164,6 +175,86 @@ const findLast = (list) => {
   return currNode.value;
 };
 
+
+
+// A -> B -> C -> D     => D -> C -> B -> A
+
+let reverseList = (list) => {
+  let currNode = list.head;
+  let prevNode = null;
+  let nextNode = null;
+  
+
+  while (currNode) {
+    nextNode = currNode.next;
+    currNode.next = prevNode;
+    prevNode = currNode;
+    currNode = nextNode;
+  }
+  list.head = prevNode;
+};
+
+// A -> B -> C -> D -> E ->
+
+let thirdFromEnd = (list) => {
+  let currNode = list.head.next.next;
+  let prevNode = list.head.next;
+  let prevPrevNode = list.head;
+
+  while (currNode.next !== null) {
+    prevPrevNode = prevPrevNode.next;
+    prevNode = prevNode.next;
+    currNode = currNode.next;
+  }
+  return prevPrevNode.value;
+};
+
+// A -> B -> C -> D -> E
+
+// let middleOfAList = (list) => {
+//   let currNode = list.head;
+//   let count = 0;
+//   let midNode = list.head;
+
+//   while(currNode !== null) {
+//     count++;
+//     currNode = currNode.next;
+//   }
+//   for (let i = 0; i < Math.floor(count/2); i++) {
+//     midNode = midNode.next;
+//   }
+//   return midNode.value;
+// };
+
+let middleOfList = (list) => {
+  let first = list.head;
+  let last = list.head.next;
+
+
+  while (last !== null && last.next !== null) {
+    first = first.next;
+    last = last.next.next;
+  }
+  return first.value;
+};
+
+
+
+let cycleInAList = (list) => {
+  let currNode = list.head.next;
+  let tempNode = list.head;
+
+  while (currNode !== null) {
+    if (currNode === tempNode) {
+      return true;
+    }
+    else {
+      currNode = currNode.next;
+    }
+  }
+  return false;
+};
+ 
 const main = () => {
   let SLL = new LinkedList();
 
@@ -173,19 +264,22 @@ const main = () => {
   SLL.insert('Helo', 1);
   SLL.insert('Husker', 2);
   SLL.insert('Starbuck', 3);
-  SLL.insertLast('Tauhida');
-  SLL.insert('squirrel', 3);
-  SLL.remove('squirrel');
   SLL.insertBefore('Boomer', 'Athena');
   SLL.insertAfter('Helo', 'Hotdog');
   SLL.insert('Kat', 3);
-  SLL.remove('Tauhida');
 
-  display(SLL);
+
+  // display(SLL);
   // size(SLL);
   // console.log(isEmpty(SLL));
   // console.log(findPrevious('Starbuck', SLL));
   // console.log(findLast(SLL));
+  // reverseList(SLL);
+  // console.log(thirdFromEnd(SLL));
+  // display(SLL);
+  // console.log(middleOfList(SLL));
+  console.log(cycleInAList(SLL));
+ 
   
 
   // console.log(SLL.find('Helo'));
