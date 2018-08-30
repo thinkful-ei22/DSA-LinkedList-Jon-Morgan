@@ -44,22 +44,35 @@ class LinkedList {
     prevNode.next = new _Node(item, currNode);
   }
 
-  insertAfter(after, item) {
 
+
+  insertAfter(after, item) {
+    let currNode = this.head;
+    let nextNode = this.head;
+
+    while (currNode !== null && currNode.value !== after) {
+      currNode = nextNode;
+      nextNode = nextNode.next;
+
+      if (currNode === null) {
+        console.log('Item does not exist');
+      }
+    }
+    currNode.next = new _Node(item, nextNode);
   }
 
-  insert(item, index) {
+  insert(item, position) {
     if (this.head === null) {
       this.insertFirst(item);
     }
     let currNode = this.head;
     let prevNode = this.head;
-    let currentIndex = 0;
+    let currentPosition = 0;
     
-    while(currentIndex !== index) {
+    while(currentPosition !== position) {
       prevNode = currNode;
       currNode = currNode.next;
-      currentIndex ++;
+      currentPosition ++;
     }
     let newItem = new _Node(item, currNode);
     prevNode.next = newItem;
@@ -120,9 +133,11 @@ const main = () => {
   SLL.insertLast('Tauhida');
   SLL.insert('squirrel', 3);
   SLL.remove('squirrel');
-  SLL.insertBefore('Helo', 'Test');
-  console.log(SLL.find('Test'));
-  // console.log(SLL);
+  SLL.insertBefore('Boomer', 'Athena');
+  SLL.insertAfter('Helo', 'Hotdog');
+  SLL.insert('Kat', 3);
+  // console.log(SLL.find('Helo'));
+  console.log((JSON.stringify(SLL)));
 };
 
 main();
